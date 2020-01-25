@@ -1,9 +1,23 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
-// import { Paper } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
+
+import { useMap } from "../context";
+import NoContent from "./Pin/NoContent";
+import CreatePin from "./Pin/CreatePin";
 
 const Blog = ({ classes }) => {
-  return <div>Blog</div>;
+  const { draft } = useMap();
+  let BlogContent = draft ? CreatePin : NoContent;
+
+  // if (!draft) BlogContent = NoContent;
+  // else if (draft) BlogContent = CreatePin;
+
+  return (
+    <Paper>
+      <BlogContent />
+    </Paper>
+  );
 };
 
 const styles = {

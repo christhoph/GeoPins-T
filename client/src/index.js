@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import ContextProviders from "./context";
+import ProtectedRoute from "./ProtectedRoute";
 import App from "./pages/App";
 import Splash from "./pages/Splash";
 
@@ -11,17 +13,16 @@ import * as serviceWorker from "./serviceWorker";
 const Root = () => {
   return (
     <Router>
-      <Switch>
-        <Route exact path="/" component={App} />
-        <Route path="/login" component={Splash} />
-      </Switch>
+      <ContextProviders>
+        <Switch>
+          <ProtectedRoute exact path="/" component={App} />
+          <Route path="/login" component={Splash} />
+        </Switch>
+      </ContextProviders>
     </Router>
   );
 };
 
 ReactDOM.render(<Root />, document.getElementById("root"));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.unregister();
